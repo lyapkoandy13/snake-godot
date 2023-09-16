@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://djdxqbvitc6ob"]
 
-[ext_resource type="Script" path="res://Level.gd" id="1_7jgd8"]
+[ext_resource type="Script" path="res://Level.gd" id="1_f0imk"]
 
 [node name="Level" type="Node2D"]
-script = ExtResource("1_7jgd8")
+script = ExtResource("1_f0imk")
 
 [node name="Camera2D" type="Camera2D" parent="."]

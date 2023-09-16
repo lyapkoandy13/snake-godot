@@ -11,8 +11,8 @@ config_version=5
 [application]
 
 config/name="Snake"
-run/main_scene="res://SnakeLevel.tscn"
-config/features=PackedStringArray("4.1", "C#", "Mobile")
+run/main_scene="res://DynamicTileMap.tscn"
+config/features=PackedStringArray("4.1", "Mobile")
 
 [dotnet]
 
