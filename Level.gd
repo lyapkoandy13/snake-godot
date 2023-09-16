@@ -100,7 +100,7 @@ func spawn_apple() -> void:
 func draw_snake_tile(position: Vector2) -> void:
 	var center = calc_tile_center_position(position)
 	print("center", center)
-	draw_rect(Rect2(center, Vector2(TILE_SIZE, TILE_SIZE)), Color.WHITE, true, 1.0)
+	draw_rect(Rect2(center, Vector2(TILE_SIZE, TILE_SIZE)), Color.GREEN_YELLOW, true, 1.0)
 
 func draw_snake():
 	for tile in snake:
@@ -109,13 +109,13 @@ func draw_snake():
 func draw_tile_borders(center_vector):
 	draw_rect(
 		Rect2(center_vector, Vector2(TILE_SIZE, TILE_SIZE)),
-		Color.AQUAMARINE,
+		Color.DIM_GRAY,
 		true,
 		2.0
 	)
 	draw_rect(
 		Rect2(center_vector, Vector2(TILE_SIZE, TILE_SIZE)),
-		Color.WHITE,
+		Color.GRAY,
 		false,
 		2.0
 	)
