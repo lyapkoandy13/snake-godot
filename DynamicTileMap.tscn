@@ -4,5 +4,4 @@
 
 [node name="DynamicTileMap" type="Node2D"]
 script = ExtResource("1_2i4pl")
-
-[node name="Camera2D" type="Camera2D" parent="."]
+show = null

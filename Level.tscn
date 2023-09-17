@@ -1,8 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://djdxqbvitc6ob"]
+[gd_scene load_steps=4 format=3 uid="uid://djdxqbvitc6ob"]
 
 [ext_resource type="Script" path="res://Level.gd" id="1_f0imk"]
+[ext_resource type="PackedScene" uid="uid://qkl6piectwv5" path="res://DynamicTileMap.tscn" id="2_y0au8"]
+[ext_resource type="Script" path="res://idk.gd" id="3_cobvl"]
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_f0imk")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="DynamicTileMap" parent="." instance=ExtResource("2_y0au8")]
+show = false
+
+[node name="Camera2D" type="Camera2D" parent="DynamicTileMap"]
+script = ExtResource("3_cobvl")

@@ -3,14 +3,12 @@ extends Node2D
 @export var SPEED = 1 # int =>1
 @export var SIZE = 10
 
-# Map
-const TILE_SIZE = 50.0 # px
-const MAP_SIZE = 10
-var tile_map = Array() # null|'apple'|'snake';
+@export var TILE_SIZE = 50
 
 # Speed
 const BASE_SPEED_DELTA = 0.5
 const SPEEDUP_STEP = 0.025
+
 
 var time_elapsed = 0
 
@@ -30,7 +28,7 @@ func check_collision_with_self() -> void:
 
 func check_collision_map_bounds() -> void:
 	var head = snake[0]
-	var new_position = head.clamp(Vector2(0, 0), Vector2(MAP_SIZE-1, MAP_SIZE-1))
+	var new_position = head.clamp(Vector2(0, 0), Vector2($DynamicTileMap.size - 1, $DynamicTileMap.size - 1))
 	var has_collided = !head.is_equal_approx(new_position)
 	
 	if has_collided:
@@ -69,16 +67,6 @@ func move(delta: float):
 	queue_redraw()
 	
 
-func init_tile_map():
-	for y in MAP_SIZE:
-		tile_map.append([])
-		for x in MAP_SIZE: 
-			tile_map[y].append(null)
-
-func get_random_position():
-	var y = randi() % int(MAP_SIZE);
-	var x = randi() % int(MAP_SIZE);
-	return Vector2(x, y)
 
 func is_position_occupied_by_snake(position: Vector2) -> bool:
 	for tile in snake:
@@ -90,7 +78,7 @@ func is_position_occupied_by_snake(position: Vector2) -> bool:
 	
 func spawn_apple() -> void:
 	while true:
-		var position = get_random_position()
+		var position = $DynamicTileMap.get_random_position()
 		var is_occupied = is_position_occupied_by_snake(position)
 		if !is_occupied: 
 			apples.push_front(position)
@@ -98,47 +86,14 @@ func spawn_apple() -> void:
 			return
 	
 func draw_snake_tile(position: Vector2) -> void:
-	var center = calc_tile_center_position(position)
-	print("center", center)
-	draw_rect(Rect2(center, Vector2(TILE_SIZE, TILE_SIZE)), Color.GREEN_YELLOW, true, 1.0)
+	var start_pos = $DynamicTileMap.calc_tile_position(position)
+	print("start_pos", start_pos)
+	draw_rect(Rect2(start_pos, Vector2(TILE_SIZE, TILE_SIZE)), Color.GREEN_YELLOW, true, 1.0)
 
 func draw_snake():
 	for tile in snake:
 		draw_snake_tile(tile)
 
-func draw_tile_borders(center_vector):
-	draw_rect(
-		Rect2(center_vector, Vector2(TILE_SIZE, TILE_SIZE)),
-		Color.DIM_GRAY,
-		true,
-		2.0
-	)
-	draw_rect(
-		Rect2(center_vector, Vector2(TILE_SIZE, TILE_SIZE)),
-		Color.GRAY,
-		false,
-		2.0
-	)
-	
-
-func calc_tile_center_position(position: Vector2):
-	const middle_offset = MAP_SIZE / 2
-	var x = (position.x - middle_offset) * TILE_SIZE - TILE_SIZE / 2
-	var y = (position.y - middle_offset) * TILE_SIZE - TILE_SIZE / 2
-	return Vector2(x, y)
-
-func draw_tile(position: Vector2):
-	var center_px = calc_tile_center_position(position)
-	draw_tile_borders(center_px)
-	
-func draw_tile_map():
-	for y in MAP_SIZE:
-		for x in MAP_SIZE: 
-			draw_tile(Vector2(x, y))
-			
-func get_opposite_direction(direction):
-	return "x" if direction == "y" else "y"
-	
 func set_current_direction():
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -165,8 +120,8 @@ func set_current_direction():
 	current_direction = new_direction
 
 func draw_apple(position: Vector2) -> void:
-	var center = calc_tile_center_position(position)
-	draw_rect(Rect2(center, Vector2(TILE_SIZE, TILE_SIZE)), Color.RED, true, 1.0)
+	var start_pos = $DynamicTileMap.calc_tile_position(position)
+	draw_rect(Rect2(start_pos, Vector2(TILE_SIZE, TILE_SIZE)), Color.RED, true, 1.0)
 
 func draw_apples():
 	for apple in apples:
@@ -180,11 +135,11 @@ func has_collided_with_apple() -> int:
 	return -1
 	
 func _ready():
-	init_tile_map()
 	spawn_apple()
+	var MAP_SIZE = $DynamicTileMap.size
+	var TILE_SIZE = $DynamicTileMap.tile_size
 
 func _draw():
-	draw_tile_map()
 	draw_snake()
 	draw_apples()
 
