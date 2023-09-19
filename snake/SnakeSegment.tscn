@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://tj2iuirprmly"]
+
+[ext_resource type="Script" path="res://snake/SnakeSegment.gd" id="1_xkf2u"]
+
+[node name="SnakeSegment" type="Node2D"]
+script = ExtResource("1_xkf2u")

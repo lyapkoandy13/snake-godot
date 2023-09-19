@@ -3,7 +3,6 @@ extends Node2D
 @onready var timer: Timer = Timer.new()
 @onready var Snake = get_parent()
 
-
 const BASE_SPEED = 0.5
 
 enum Direction { UP, DOWN, LEFT, RIGHT }
@@ -21,7 +20,7 @@ func get_opposite_direction(direction: Direction) -> Direction:
 		Direction.RIGHT:
 			return Direction.LEFT
 		_:
-			return Direction.LEFT 
+			return Direction.RIGHT 
 
 func set_current_direction():
 	var direction_x = Input.get_axis("move_left", "move_right")
@@ -48,7 +47,7 @@ func set_current_direction():
 	current_direction = new_direction
 
 func _on_timer_timeout():
-	print("Timeout")
+	print("Timeout - moving snake")
 	Snake.move()
 
 func _ready():

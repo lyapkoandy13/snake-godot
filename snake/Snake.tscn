@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cwj6ujkyyai8v"]
+
+[ext_resource type="Script" path="res://snake/Snake.gd" id="1_vet1w"]
+[ext_resource type="Script" path="res://snake/SnakeController.gd" id="2_urwqy"]
+
+[node name="Snake" type="Node2D"]
+script = ExtResource("1_vet1w")
+
+[node name="Controller" type="Node2D" parent="."]
+script = ExtResource("2_urwqy")
